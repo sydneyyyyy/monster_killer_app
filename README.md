@@ -205,6 +205,85 @@ The functions are stored in the heap. When are script runs, the browser pushes i
 
 > JS is single-threaded: "One thing happens at a time"
 
+### Primitive vs. Reference Values
+
+Primitive Values:
+* Strings
+* Numbers
+* Booleans
+* null
+* undefined
+* Symbol
+
+> Stored in memory (normally on Stack), variable stores value itself. Copying a variable (assign to different variable) copies the value.
+
+Reference Values:
+* All other objects ("more expensive to create")
+
+> Stored in memory (Heap), variable stores a pointer (address) to location in memory and not the value itself. Copying a variable (assign to a different variable) copies the pointer/reference and NOT the value itself. 
+
+So if you create another variable for an array/object. The new variable name will point to the original object in memory. If you change one array you automatically change the other array. 
+
+This is a default behavior and helps with decluttering memory, better performance, and avoid unnecessary duplication of data. 
+
+### Spread Operator
+
+`...`
+
+To work around this default behavior you would use the spread operator (...). 
+
+```
+let person = {age: 30};
+let anotherPerson = {...person};
+```
+
+> `...person` copies the person object into a new location in memory. Then you can change one object without affecting the other object. 
+
+## Garbage Collection
+
+The GC periodically checks the Heap for unused objects (objects without references). Removes unused objects from the heap. 
+
+> The broswer handled Garbage Collection on its own. 
+
+Memory Leaks ->  Unused objects, where you still hold references to it. 
+
+# More About Functions
+
+Parameters -> variables which you specify between parentheses when defining a function.
+
+` function sayHi(name) {...};`
+
+> `name` is the parameter.
+
+Arguments -> the concrete values you pass to a function when calling that function.
+
+`sayHi('Max');`
+
+> `Max` is an argument of the function.
+
+Methods -> functions within an object. 
+
+### Function Declaration / Function Statement
+
+```
+function multiply (a, b) {
+    return a * b;
+}
+```
+
+Hoisted to top, can be declared anywhere in the file (i.e. also after it's used).
+
+### Function Expression
+
+```
+const multiple = function (a, b) {
+    return a * b;
+}
+```
+
+Hoisted to top but not initialized/defined. Can NOT be declared anywhere in the file (i.e. not after it's used).
+
+
 
 
 
