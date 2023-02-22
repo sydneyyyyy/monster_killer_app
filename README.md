@@ -3,6 +3,11 @@
 * `prompt();` -> shows a dialog which prompts the user to enter something. 
 * `parseInt();`
 * `isNaN()` -> checks if the value is NaN.
+* `toUpperCase()`
+* `toLowerCase()`
+* `bind()` -> creates a new function that, when called, has its `this` keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called. 
+
+> Usually used in situations where you want to pre-configure a functions arguments, when you're not calling the function on your own. 
 
 ### Conditional Expressions / Ternary Operator
 
@@ -271,7 +276,7 @@ function multiply (a, b) {
 }
 ```
 
-Hoisted to top, can be declared anywhere in the file (i.e. also after it's used).
+Function Declarations automatically create variables that hold the function objects. Hoisted to top, can be declared anywhere in the file (i.e. also after it's used).
 
 ### Function Expression
 
@@ -281,14 +286,108 @@ const multiple = function (a, b) {
 }
 ```
 
-Hoisted to top but not initialized/defined. Can NOT be declared anywhere in the file (i.e. not after it's used).
+Function Expressions return an object. Hoisted to top but not initialized/defined. Can NOT be declared anywhere in the file (i.e. not after it's used).
 
+### Anonymous Functions
 
+Anonymous Functions are functions that do not have any name associated with it. Are often used as arguments being passed to higher order functions, or used for constructing the result of a higher-order function that needs to return a function.
 
+```
+const start = function() {
+    console.log();
+}
+```
 
+or...
 
+```
+clickBtn.addEventListener('click', function() {
+    console.log();
+})
+```
 
+### Arrow Functions
 
+An anonymous function where you can NOT assign a name to the function. Should NOT be uses as Methods because they don't have their own bindings to `this`, `arguments`, or `super`. They can NOT be used as constructors. Calling them with `new` throws a `TypeError`. 
+
+```
+(param1, param2) => expression
+param => {
+    statements;
+}
+```
+
+```
+const add = (a, b) => a + b;
+const add2 = function(a, b) {
+    return a + b;
+}
+```
+
+Syntax:
+
+* If there are NO arguments / parameters `() => {...}` -> Parenthesis is required.
+* If you have exactly ONE argument/parameter `arg => {...}` -> Parenthesis can be omitted.
+* If you have exactly ONE expression in function body `(a, b) => a + b` -> Curly braces can be omitted, result is returned. 
+* If you have MORE than one expression in function body -> Curly braces and return statement are required:
+
+```
+(a + b) => {
+    a *= 2;
+    return a + b;
+}
+```
+
+### Default Arguments
+
+Default Parameters allow named parameters to be initialized with default values if no value or `undefined` is passed. 
+
+```
+function fnName(param1 = defaultValue1, paramN = defaultValueN) {
+    ...
+}
+```
+
+### Rest Operator
+
+Rest Operator allows a function to accept an infinite number of arguments as an array. 
+
+```
+function f(a, b, ...theArgs) {
+    ...
+}
+```
+
+> The rest operator creats an array of the remaining arguments. You can only have one rest parameter in your function, and it MUST be the last parameter in the function definition. 
+
+#### Rest Operator vs. Arguments Object
+
+Arguments Object:
+* Not a real array
+* Syncs its indices with the values of parameters. 
+* Contains all the parameters, including the parameters in the ...restParam array bundled into one array-like object.
+
+Rest Operator:
+* Are Array instances -> they have methods like `sort()`, `map()`, `forEach()`, or `pop()` that can be applied directly to the array. 
+* The rest parameter array never updates its value when the named parameters are re-assigned.
+* Bundles all the extra parameters into a single array, but does not contain any named argument defined before the `...restParam`. 
+
+### Callback Functions
+
+A Callback Function is a function passed into another function as an argument, which is then invoked inside the outer function to complete some kind of routine or action. 
+
+```
+function greeting(name) {
+    alert(`Hello, ${name}`);
+}
+
+function processUserInput(callback) {
+    const name = prompt("Please enter your name.");
+    callback(name);
+}
+
+processUserInput(greeting);
+```
 
 
 
